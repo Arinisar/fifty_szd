@@ -1,7 +1,8 @@
 import keras
 import numpy as np
 import os
-import  json
+import json
+import time
 
 test_file = os.path.abspath('./512_1/512_1/test.npz')
 best_model = os.path.abspath('./new_model.h5')
@@ -20,7 +21,12 @@ model = keras.models.load_model(best_model)
 model.summary()
 
 
+time_start = time.time()
 predictions = model.predict(x_test)
+total_time = time.time() - time_start
+numsumples = len(predictions)
+print('Class of {numsumples:d} samples predicted in\t{time:.2f}s.\t'.format(
+    numsumples=numsumples,time=total_time), end='\n')
 # for x in x_test:
 #     prediction = model(x, training=False, verbose=1)
 #     print(prediction)
